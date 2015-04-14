@@ -1,7 +1,7 @@
 var http = require('https');
 var querystring = require('querystring');
 
-function initialPayments(callback) {
+function initialPayment(callback) {
 	var data = querystring.stringify( {
 		'authentication.userId' : '8a8294174b7ecb28014b9699220015cc',
 		'authentication.password' : 'sy6KJsT8',
@@ -37,6 +37,6 @@ function initialPayments(callback) {
 	  
 }
   
-initialPayments(function(responseData) {
+initialPayment(function(responseData) {
 	console.log(responseData);
 });
