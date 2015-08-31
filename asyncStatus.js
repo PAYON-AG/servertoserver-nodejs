@@ -1,37 +1,27 @@
 var http = require('https');
+var querystring = require('querystring');
 
-function getPaymentStatus(paymentId, callback) {
-	var url = "/v1/payments/" + paymentId;;
-	url += "?authentication.userId=8a8294174b7ecb28014b9699220015cc";
-        url += "&authentication.password=sy6KJsT8";
-        url += "&authentication.entityId=8a8294174b7ecb28014b9699a3cf15d1";
+function request(callback) {
+	var path='/v1/payments/8a82944a4cc25ebf014cc2c782423202';
+	path += '?authentication.userId=8a8294174b7ecb28014b9699220015cc'
+	path += '&authentication.password=sy6KJsT8'
+	path += '&authentication.entityId=8a8294174b7ecb28014b9699220015ca'
 	var options = {
 		port: 443,
 		host: 'test.oppwa.com',
-		path: url,
+		path: path,
 		method: 'GET',
-		headers: {
-			'Content-Type': 'application/x-www-form-urlencoded'
-		}
 	};
-	var getRequest = http.request(options, function(res) {
+	var postRequest = http.request(options, function(res) {
 		res.setEncoding('utf8');
 		res.on('data', function (chunk) {
-			return callback(JSON.parse(chunk));
+			jsonRes = JSON.parse(chunk);
+			return callback(jsonRes);
 		});
 	});
-	getRequest.end();
-	  
+	postRequest.end();
 }
-  
-getPaymentStatus("8a8294494ce19bdf014ce509f20b13e7", function(status) {
-	if (status["result"]["code"].substring(0, 3) === "000") {
-		console.log("SUCCESS <br/><br/> Here is the result of your transaction: <br/><br/>");
-		console.log(status);
-	}
-	else {
-		console.log("ERROR <br/><br/> Here is the result of your transaction: <br/><br/>");
-		console.log(status);
-	}
 	
+request(function(responseData) {
+	console.log(responseData);
 });

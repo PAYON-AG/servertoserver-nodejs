@@ -1,11 +1,11 @@
 var http = require('https');
+var querystring = require('querystring');
 
-function deleteRegistration(callback) {
-	var path = '/v1/registrations/8a8294494cfff3e0014d04c245075168' +
-		'?authentication.userId=8a8294174b7ecb28014b9699220015cc' +
-		'&authentication.password=sy6KJsT8' +
-		'&authentication.entityId=8a8294174b7ecb28014b9699a3cf15d1';
-		
+function request(callback) {
+	var path='/v1/registrations/8a82944a4cc25ebf014cc2c782423202';
+	path += '?authentication.userId=8a8294174b7ecb28014b9699220015cc'
+	path += '&authentication.password=sy6KJsT8'
+	path += '&authentication.entityId=8a8294174b7ecb28014b9699220015ca'
 	var options = {
 		port: 443,
 		host: 'test.oppwa.com',
@@ -20,9 +20,8 @@ function deleteRegistration(callback) {
 		});
 	});
 	postRequest.end();
-	  
 }
-  
-deleteRegistration(function(responseData) {
+	
+request(function(responseData) {
 	console.log(responseData);
 });

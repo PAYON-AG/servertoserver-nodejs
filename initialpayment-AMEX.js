@@ -1,11 +1,12 @@
 var http = require('https');
 var querystring = require('querystring');
 
-function initialPayment(callback) {
+function request(callback) {
+	var path='/v1/payments';
 	var data = querystring.stringify( {
 		'authentication.userId' : '8a8294174b7ecb28014b9699220015cc',
 		'authentication.password' : 'sy6KJsT8',
-		'authentication.entityId' : '8a8294174b7ecb28014b9699a3cf15d1',
+		'authentication.entityId' : '8a8294174b7ecb28014b9699220015ca',
 		'amount' : '92.00',
 		'currency' : 'EUR',
 		'paymentBrand' : 'AMEX',
@@ -14,16 +15,16 @@ function initialPayment(callback) {
 		'card.holder' : 'Jane Jones',
 		'card.expiryMonth' : '05',
 		'card.expiryYear' : '2018',
-		'card.cvv' : '1234',
+		'card.cvv' : '1234'
 	});
 	var options = {
 		port: 443,
 		host: 'test.oppwa.com',
-		path: '/v1/payments',
+		path: path,
 		method: 'POST',
 		headers: {
-		  'Content-Type': 'application/x-www-form-urlencoded',
-		  'Content-Length': data.length
+			'Content-Type': 'application/x-www-form-urlencoded',
+			'Content-Length': data.length
 		}
 	};
 	var postRequest = http.request(options, function(res) {
@@ -35,9 +36,8 @@ function initialPayment(callback) {
 	});
 	postRequest.write(data);
 	postRequest.end();
-	  
 }
-  
-initialPayment(function(responseData) {
+	
+request(function(responseData) {
 	console.log(responseData);
 });
